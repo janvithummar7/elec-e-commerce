@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiSearch, FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="flex items-center justify-between px-6 py-4 shadow-md bg-white">
@@ -31,8 +33,13 @@ const Navbar = () => {
           />
           <FiSearch className="text-gray-500" />
         </div>
-        <FiHeart className="text-2xl text-black cursor-pointer" />
-        <FiShoppingCart className="text-2xl text-black cursor-pointer" />
+        <FiHeart
+        className="text-2xl text-black cursor-pointer"
+        onClick={() => navigate("/wishlist")} // Navigate to Wishlist
+      />
+        <FiShoppingCart className="text-2xl text-black cursor-pointer" 
+        onClick={() => navigate("/cart")}
+        />
       </div>
 
       <button className="md:hidden text-2xl" onClick={() => setIsOpen(!isOpen)}>

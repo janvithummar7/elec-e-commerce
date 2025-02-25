@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signup from "./components/Signup";
+import Signup from "./pages/Signup";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer"; 
 import Home from "./components/Home";
+import Wishlist from "./pages/Wishlist";
+import Cart from "./pages/Cart";
 
 const AppRouter = () => {
   return (
@@ -16,6 +18,8 @@ const AppRouter = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<Home />} />
+            <Route path="/wishlist" element={<Wishlist />}/>
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>
         <Footer />
