@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiTrash } from "react-icons/fi";
-import { CartData } from "../data/cart"; // Import cart data
+import { CartData } from "../data/cart";
 
 const Cart = () => {
-  // Initialize cart state with imported data
   const [cartItems, setCartItems] = useState(CartData);
 
-  // Update quantity
   const updateQuantity = (id, qty) => {
     setCartItems((prev) =>
       prev.map((item) =>
@@ -15,12 +13,10 @@ const Cart = () => {
     );
   };
 
-  // Remove item from cart
   const removeItem = (id) => {
     setCartItems(cartItems.filter((item) => item.id !== id));
   };
 
-  // Calculate totals
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -29,8 +25,6 @@ const Cart = () => {
   return (
     <div className="m-18">
       <p className="text-gray-500 text-sm mb-10">Home / <span className="text-black">Cart</span></p>
-
-      {/* Cart Table */}
       <div className="border border-gray-200 rounded-lg p-6 mb-6">
         <table className="w-full">
           <thead>
@@ -44,10 +38,10 @@ const Cart = () => {
           <tbody>
             {cartItems.map((item) => (
               <tr key={item.id} className="border-b">
-                <td className="flex items-center gap-4 py-4">
+                <td className="flex items-center gap-4 py-8 ">
                   <img src={item.image} alt={item.name} className="w-14 h-14 object-cover" />
                   {item.name}
-                  <button onClick={() => removeItem(item.id)} className="text-red-500 ml-2">
+                  <button onClick={() => removeItem(item.id)} className="text-red-500 ml-2 cursor-pointer">
                     <FiTrash />
                   </button>
                 </td>
@@ -72,40 +66,35 @@ const Cart = () => {
         </table>
       </div>
 
-      {/* Buttons */}
       <div className="flex justify-between mb-6">
-        <button className="border border-black px-6 py-2 text-sm">Return To Shop</button>
-        <button className="border border-black px-6 py-2 text-sm">Update Cart</button>
+        <button className="border border-black px-6 py-2 text-sm cursor-pointer">Return To Shop</button>
       </div>
 
-      {/* Coupon & Cart Total Section */}
-      <div className="grid grid-cols-2 gap-6">
-        {/* Coupon Code */}
-        <div className="flex gap-4">
+      <div className="grid grid-cols-2 gap-50 mt-20">
+        <div className="flex gap-4 h-[56px]">
           <input
             type="text"
             placeholder="Coupon Code"
-            className="border border-gray-300 px-4 py-2 w-full rounded"
+            className="border border-gray-300 px-4 py-2 w-[300px] rounded"
           />
-          <button className="bg-red-500 text-white px-6 py-2 rounded">Apply Coupon</button>
+          <button className="bg-red-500 text-white px-6 py-2 rounded cursor-pointer">Apply Coupon</button>
         </div>
 
-        {/* Cart Total */}
         <div className="border border-gray-200 p-6 rounded-lg">
-          <h2 className="text-lg font-semibold mb-4">Cart Total</h2>
+          <h2 className="text-lg font-semibold mb-4 py-3">Cart Total</h2>
           <div className="flex justify-between border-b pb-2">
             <span>Subtotal:</span>
             <span>${subtotal}</span>
           </div>
-          <div className="flex justify-between border-b py-2">
+          <div className="flex justify-between border-b py-5">
             <span>Shipping:</span>
             <span className="text-green-500">Free</span>
           </div>
-          <div className="flex justify-between font-semibold py-2">
+          <div className="flex justify-between font-semibold py-5">
             <span>Total:</span>
             <span>${subtotal}</span>
           </div>
-          <button className="bg-red-500 text-white w-full py-3 mt-4 rounded">
+          <button className="bg-red-500 text-white w-full py-3 mt-4 rounded cursor-pointer">
             Proceed to checkout
           </button>
         </div>
