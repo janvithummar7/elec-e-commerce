@@ -3,10 +3,11 @@ import item2 from "../assets/banner2.jpeg";
 import item3 from "../assets/banner3.png";
 import item4 from "../assets/banner4.png";
 import item5 from "../assets/banner5.png";
+import { Truck, Headphones, ShieldCheck } from "lucide-react";
 
 const NewArrivalSection = () => {
   return (
-    <div className="mt-10 px-20">
+    <div className="mt-10 px-5">
       <div className="flex items-center gap-2">
         <div className="w-2 h-6 bg-red-500 rounded-sm"></div>
         <h3 className="text-red-500 font-semibold text-lg">Featured</h3>
@@ -49,19 +50,21 @@ const NewArrivalSection = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center mt-10 border-t pt-5">
-        {[
-          { title: "FREE AND FAST DELIVERY", desc: "Free delivery for all orders over $140", icon: "🚚" },
-          { title: "24/7 CUSTOMER SERVICE", desc: "Friendly 24/7 customer support", icon: "☎️" },
-          { title: "MONEY BACK GUARANTEE", desc: "We return money within 30 days", icon: "💰" },
-        ].map((service, index) => (
-          <div key={index} className="text-center">
-            <div className="text-3xl">{service.icon}</div>
-            <h4 className="font-semibold mt-2">{service.title}</h4>
-            <p className="text-sm text-gray-500">{service.desc}</p>
+      <div className="flex justify-center gap-16 mt-10  pt-8 mb-10">
+      {[
+        { title: "FREE AND FAST DELIVERY", desc: "Free delivery for all orders over $140", icon: <Truck size={28} /> },
+        { title: "24/7 CUSTOMER SERVICE", desc: "Friendly 24/7 customer support", icon: <Headphones size={28} /> },
+        { title: "MONEY BACK GUARANTEE", desc: "We return money within 30 days", icon: <ShieldCheck size={28} /> },
+      ].map((service, index) => (
+        <div key={index} className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 flex items-center justify-center bg-black text-white rounded-full border border-gray-300">
+            {service.icon}
           </div>
-        ))}
-      </div>
+          <h4 className="font-semibold mt-3 text-lg">{service.title}</h4>
+          <p className="text-sm text-gray-500">{service.desc}</p>
+        </div>
+      ))}
+    </div>
     </div>
   );
 };

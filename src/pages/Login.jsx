@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import signupImage from "../assets/banner6.png";
-import GoogleIcon from "@mui/icons-material/Google";
 
-const SignUp = () => {
+const Login = () => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     email: Yup.string()
@@ -39,17 +38,12 @@ const SignUp = () => {
     {/* Right Side - Centered Form */}
     <div className="w-full lg:w-[50%] flex justify-center">
       <div className="w-full max-w-md  p-8 rounded-lg ">
-        <h2 className="text-2xl font-bold text-left mb-4">Create an account</h2>
+        <h2 className="text-2xl font-bold text-left mb-4">Log in to Exclusive</h2>
         <p className="text-gray-600 text-left mb-6">Enter your details below</p>
 
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
           {({ isSubmitting }) => (
             <Form className="space-y-4">
-              <div>
-                <Field type="text" name="name" placeholder="Name" className="w-full p-3 border-b border-gray-400 focus:outline-none focus:border-black" />
-                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
-              </div>
-
               <div>
                 <Field type="email" name="email" placeholder="Email or Phone Number" className="w-full p-3 border-b border-gray-400 focus:outline-none focus:border-black" />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
@@ -60,23 +54,23 @@ const SignUp = () => {
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
               </div>
 
-              <button type="submit" disabled={isSubmitting} className="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition">
-                {isSubmitting ? "Creating Account..." : "Create Account"}
-              </button>
+              <div className="flex items-center justify-between">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-1/3 bg-red-500 text-white py-3 rounded-sm hover:bg-red-600 transition"
+                >
+                  {isSubmitting ? "Logging in..." : "Log in"}
+                </button>
+
+                <Link to="/forgot-password" className="text-red-500 text-sm hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+
             </Form>
           )}
         </Formik>
-
-        <div className="text-center mt-4">
-        <button className="w-full flex items-center justify-center border py-3 rounded-lg hover:bg-gray-100 transition">
-            <GoogleIcon className="w-5 h-5 mr-2 text-blue-500" />
-            Sign up with Google
-        </button>
-        </div>
-
-        <p className="text-center text-gray-600 mt-4">
-          Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Log in</Link>
-        </p>
       </div>
     </div>
   </div>
@@ -86,4 +80,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

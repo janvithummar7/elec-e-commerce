@@ -5,7 +5,7 @@ const OurProducts = () => {
   const [hoveredId, setHoveredId] = useState(null);
 
   return (
-    <div className="p-10">
+    <div className="p-5">
       <div className="flex items-center gap-2">
         <div className="w-2 h-6 bg-red-500 rounded-sm"></div>
         <h3 className="text-red-500 font-semibold text-lg">Our Products</h3>

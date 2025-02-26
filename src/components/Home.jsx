@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="flex flex-col px-20 py-2">
       <div className="flex">
-        <div className="w-1/5 p-5 border-r">
+        <div className="w-1/5 p-5 border-r border-gray-200">
           <ul className="space-y-4">
             {[
               "Woman’s Fashion",
