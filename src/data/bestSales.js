@@ -10,7 +10,8 @@ export const bestSalesData = [
       image: item1,
       price: "$260",
       originalPrice: "$360",
-      rating: 5,
+      rating: 3,
+      reviews: 35,
     },
     {
       id: 2,
@@ -19,6 +20,7 @@ export const bestSalesData = [
       price: "$960",
       originalPrice: "$1160",
       rating: 5,
+      reviews: 55,
     },
     {
       id: 3,
@@ -27,6 +29,7 @@ export const bestSalesData = [
       price: "$160",
       originalPrice: "$170",
       rating: 5,
+      reviews: 65,
     },
     {
       id: 4,
@@ -34,6 +37,7 @@ export const bestSalesData = [
       image: item4,
       price: "$360",
       originalPrice: "",
-      rating: 5,
+      rating: 4,
+      reviews: 45,
     },
   ];

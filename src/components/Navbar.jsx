@@ -35,7 +35,7 @@ const Navbar = () => {
         </div>
         <FiHeart
         className="text-2xl text-black cursor-pointer"
-        onClick={() => navigate("/wishlist")} // Navigate to Wishlist
+        onClick={() => navigate("/wishlist")} 
       />
         <FiShoppingCart className="text-2xl text-black cursor-pointer" 
         onClick={() => navigate("/cart")}
@@ -52,14 +52,6 @@ const Navbar = () => {
           <Link to="/contact" className="text-lg" onClick={() => setIsOpen(false)}>Contact</Link>
           <Link to="/about" className="text-lg" onClick={() => setIsOpen(false)}>About</Link>
           <Link to="/signup" className="text-lg" onClick={() => setIsOpen(false)}>Sign Up</Link>
-          {/* <div className="flex items-center bg-gray-100 px-3 py-2 rounded-lg w-3/4">
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              className="bg-transparent outline-none text-sm w-full"
-            />
-            <FiSearch className="text-gray-500" />
-          </div> */}
         </div>
       )}
     </nav>

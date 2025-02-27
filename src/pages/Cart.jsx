@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { FiTrash } from "react-icons/fi";
-import { CartData } from "../data/cart"; // Import cart data
+import { CartData } from "../data/cart"; 
 
 const Cart = () => {
-  // Initialize cart state with imported data
   const [cartItems, setCartItems] = useState(CartData);
 
-  // Update quantity
   const updateQuantity = (id, qty) => {
     setCartItems((prev) =>
       prev.map((item) =>
@@ -15,12 +13,10 @@ const Cart = () => {
     );
   };
 
-  // Remove item from cart
   const removeItem = (id) => {
     setCartItems(cartItems.filter((item) => item.id !== id));
   };
 
-  // Calculate totals
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -28,9 +24,7 @@ const Cart = () => {
 
   return (
     <div className="m-18">
-      <p className="text-gray-500 text-sm mb-10">Home / <span className="text-black">Cart</span></p>
-
-      {/* Cart Table */}
+      <p className="text-gray-500 text-sm mb-10">Home / <span className="text-black">Cart</span></p>      
       <div className="border border-gray-200 rounded-lg p-6 mb-6">
         <table className="w-full">
           <thead>
@@ -70,17 +64,12 @@ const Cart = () => {
             ))}
           </tbody>
         </table>
-      </div>
-
-      {/* Buttons */}
+      </div>      
       <div className="flex justify-between mb-6">
         <button className="border border-black px-6 py-2 text-sm">Return To Shop</button>
         <button className="border border-black px-6 py-2 text-sm">Update Cart</button>
-      </div>
-
-      {/* Coupon & Cart Total Section */}
+      </div>     
       <div className="grid grid-cols-2 gap-6">
-        {/* Coupon Code */}
         <div className="flex gap-4">
           <input
             type="text"
@@ -89,8 +78,6 @@ const Cart = () => {
           />
           <button className="bg-red-500 text-white px-6 py-2 rounded">Apply Coupon</button>
         </div>
-
-        {/* Cart Total */}
         <div className="border border-gray-200 p-6 rounded-lg">
           <h2 className="text-lg font-semibold mb-4">Cart Total</h2>
           <div className="flex justify-between border-b pb-2">
