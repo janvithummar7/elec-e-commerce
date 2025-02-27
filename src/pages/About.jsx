@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { stats, teamMembers } from "../data/about";
+import Service from "../components/Service";
 
 const About = () => {
   const [hoveredStateIndex, setHoveredStateIndex] = useState(null);
@@ -78,6 +79,11 @@ const About = () => {
           </div>
         ))}
       </Slider>
+
+      <div className="mt-10">
+        <Service />
+      </div>
+      
     </div>
   );
 };

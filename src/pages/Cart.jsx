@@ -79,7 +79,6 @@ const Cart = () => {
           />
           <button className="bg-red-500 text-white px-6 py-2 rounded cursor-pointer">Apply Coupon</button>
         </div>
-
         <div className="border border-gray-200 p-6 rounded-lg">
           <h2 className="text-lg font-semibold mb-4 py-3">Cart Total</h2>
           <div className="flex justify-between border-b pb-2">

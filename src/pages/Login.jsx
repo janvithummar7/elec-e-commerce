@@ -30,12 +30,9 @@ const Login = () => {
     <>
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
   <div className="max-w-[1200px] w-full flex flex-col lg:flex-row items-center">
-    {/* Left Side - Image */}
     <div className="hidden lg:flex w-[50%] justify-center">
       <img src={signupImage} alt="Sign Up" className="max-w-[600px] h-auto" />
     </div>
-
-    {/* Right Side - Centered Form */}
     <div className="w-full lg:w-[50%] flex justify-center">
       <div className="w-full max-w-md  p-8 rounded-lg ">
         <h2 className="text-2xl font-bold text-left mb-4">Log in to Exclusive</h2>
@@ -67,7 +64,6 @@ const Login = () => {
                   Forgot password?
                 </Link>
               </div>
-
             </Form>
           )}
         </Formik>

@@ -2,12 +2,15 @@ import BannerCarousel from "../components/BannerCarousel";
 import FlashSales from "../components/FlashSales";
 import Categories from "../components/Categories";
 import BestSales from "../components/BestSales";
+import PromoBanner from "../components/PromoBanner"
 import OurProducts from "../components/OurProducts";
 import NewArrivalSection from "../components/NewArrivalSection";
+import Service from "../components/Service";
+
 
 const Home = () => {
   return (
-    <div className="flex flex-col px-20 py-2">
+    <div className="flex flex-col px-20 py-2 p-5 space-y-10">
       <div className="flex">
         <div className="w-1/5 p-5 border-r border-gray-200">
           <ul className="space-y-4">
@@ -47,6 +50,10 @@ const Home = () => {
       </div>
 
       <div className="mt-10">
+        <PromoBanner />
+      </div>
+
+      <div className="mt-10">
         <OurProducts />
       </div>
 
@@ -54,6 +61,9 @@ const Home = () => {
         <NewArrivalSection />
       </div>
 
+      <div className="mt-10">
+        <Service />
+      </div>
     </div>
   );
 };
