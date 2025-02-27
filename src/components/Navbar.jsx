@@ -18,6 +18,12 @@ const Navbar = () => {
   const isWishlistActive = location.pathname === "/wishlist";
   const isCartActive = location.pathname === "/cart";
 
+  const [notifications, setNotifications] = useState({
+    wishlistCount: isWishlistActive ? 0: 4,
+    cartCount: isCartActive ? 0 : 2,
+  });
+  
+
   return (
     <nav className="flex items-center justify-between px-20 py-4 shadow-md bg-white relative">
       <div className="text-2xl font-bold text-black">Exclusive</div>
@@ -40,25 +46,45 @@ const Navbar = () => {
         ))}
       </ul>
 
-      <div className="hidden md:flex items-center space-x-4 relative">
+      <div className="hidden md:flex items-center space-x-2 relative">
         <div className="hidden md:flex items-center bg-gray-100 px-3 py-2 rounded-lg">
           <input type="text" placeholder="What are you looking for?" className="bg-transparent outline-none text-sm w-48" />
           <FiSearch className="text-gray-500" />
         </div>
 
-        <button
-          onClick={() => navigate("/wishlist")}
-          className={`p-3 rounded-full transition ${isWishlistActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"}`}
-        >
-          <FiHeart className="text-2xl" />
-        </button>
+        <div className="relative">
+          <button
+            onClick={() => {
+              navigate("/wishlist")
+              setNotifications({wishlistCount: 0, cartCount: notifications.cartCount})
+            }}
+            className={`p-3 rounded-full transition hover:bg-red-500 hover:text-white relative ${isWishlistActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"}`}
+          >
+            <FiHeart className="text-2xl" />
+          </button>
+          {notifications.wishlistCount > 0 && (
+            <span className="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+              {notifications.wishlistCount}
+            </span>
+          )}
+        </div>
 
-        <button
-          onClick={() => navigate("/cart")}
-          className={`p-3 rounded-full transition ${isCartActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"}`}
-        >
-          <FiShoppingCart className="text-2xl" />
-        </button>
+        <div className="relative">
+          <button
+            onClick={() => {
+              navigate("/cart")
+              setNotifications({cartCount: 0, wishlistCount: notifications.wishlistCount})
+            }}
+            className={`p-3 rounded-full transition hover:bg-red-500 hover:text-white relative ${isCartActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"}`}
+          >
+            <FiShoppingCart className="text-2xl" />
+          </button>
+          {notifications.cartCount > 0 && (
+            <span className="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+              {notifications.cartCount}
+            </span>
+          )}
+        </div>
 
         <div
           className="relative group"
