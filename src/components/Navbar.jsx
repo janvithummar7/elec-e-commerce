@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { 
   FiSearch, FiHeart, FiShoppingCart, FiMenu, FiX, FiUser, FiShoppingBag 
@@ -6,10 +6,14 @@ import {
 import { ImCancelCircle } from "react-icons/im";
 import { FaRegStar } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
+import { useUser } from "../contexts/UserContext";
+
 
 const Navbar = () => {
+  const { user, logout } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,6 +26,19 @@ const Navbar = () => {
     wishlistCount: isWishlistActive ? 0: 4,
     cartCount: isCartActive ? 0 : 2,
   });
+
+  const moreMenuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target)) {
+        setIsMoreMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   
 
   return (
@@ -33,7 +50,6 @@ const Navbar = () => {
           { path: "/", label: "Home" },
           { path: "/contact", label: "Contact" },
           { path: "/about", label: "About" },
-          { path: "/signup", label: "Sign Up" },
         ].map(({ path, label }) => (
           <li key={path}>
             <Link
@@ -44,6 +60,47 @@ const Navbar = () => {
             </Link>
           </li>
         ))}
+        {!user && 
+          <li key="/signup">
+              <Link
+                to="/signup"
+                className="flex items-center space-x-2 px-3 py-2 rounded-md transition"
+              >
+                <span>Sign Up</span>
+              </Link>
+          </li>
+        }
+        {user &&
+          <li key='/more' className="relative" ref={moreMenuRef}>
+            <button
+              onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+              className="flex items-center space-x-2 px-3 py-2 rounded-md transition"
+            >
+              <span>More</span>
+            </button>
+            {isMoreMenuOpen && (
+              <div className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-3 z-10 backdrop-blur-md bg-black/5">
+                <ul className="space-y-4">
+                  {[
+                    "Woman’s Fashion",
+                    "Men’s Fashion",
+                    "Electronics",
+                    "Home & Lifestyle",
+                    "Medicine",
+                    "Sports & Outdoor",
+                    "Baby’s & Toys",
+                    "Groceries & Pets",
+                    "Health & Beauty",
+                  ].map((category, index) => (
+                    <li key={index} className="flex justify-between items-center text-gray-600 cursor-pointer hover:text-black">
+                      {category} <span className="text-lg">›</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </li>
+        }
       </ul>
 
       <div className="hidden md:flex items-center space-x-2 relative">
@@ -51,75 +108,79 @@ const Navbar = () => {
           <input type="text" placeholder="What are you looking for?" className="bg-transparent outline-none text-sm w-48" />
           <FiSearch className="text-gray-500" />
         </div>
-
-        <div className="relative">
-          <button
-            onClick={() => {
-              navigate("/wishlist")
-              setNotifications({wishlistCount: 0, cartCount: notifications.cartCount})
-            }}
-            className={`p-3 rounded-full transition hover:bg-red-500 hover:text-white relative ${isWishlistActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"}`}
-          >
-            <FiHeart className="text-2xl" />
-          </button>
-          {notifications.wishlistCount > 0 && (
-            <span className="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-              {notifications.wishlistCount}
-            </span>
-          )}
-        </div>
-
-        <div className="relative">
-          <button
-            onClick={() => {
-              navigate("/cart")
-              setNotifications({cartCount: 0, wishlistCount: notifications.wishlistCount})
-            }}
-            className={`p-3 rounded-full transition hover:bg-red-500 hover:text-white relative ${isCartActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"}`}
-          >
-            <FiShoppingCart className="text-2xl" />
-          </button>
-          {notifications.cartCount > 0 && (
-            <span className="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-              {notifications.cartCount}
-            </span>
-          )}
-        </div>
-
-        <div
-          className="relative group"
-          onMouseEnter={() => setIsUserMenuOpen(true)}
-          onMouseLeave={() => setIsUserMenuOpen(false)}
-        >
-          <button
-            className={`p-3 rounded-full transition ${
-              isUserMenuOpen || isUserActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"
-            }`}
-          >
-            <FiUser className="text-2xl" />
-          </button>
-
-          {isUserMenuOpen && (
-            <div className="absolute right-0 w-64 bg-white shadow-lg rounded-lg p-3 z-10 backdrop-blur-md bg-black/5">
-              {[
-                { path: "/account", label: "Manage My Account", Icon: FiUser },
-                { path: "/orders", label: "My Orders", Icon: FiShoppingBag },
-                { path: "/cancellations", label: "My Cancellations", Icon: ImCancelCircle },
-                { path: "/reviews", label: "My Reviews", Icon: FaRegStar },
-                { path: "/logout", label: "Logout", Icon: CiLogout, textClass: "text-red-500" },
-              ].map(({ path, label, Icon, textClass }) => (
-                <Link
-                  key={path}
-                  to={path}
-                  className={`flex items-center space-x-3 px-4 py-2 rounded-md hover:bg-red-500 hover:text-white transition ${textClass || ""}`}
-                >
-                  <Icon className="text-xl" />
-                  <span>{label}</span>
-                </Link>
-              ))}
+        {user && ( 
+          <>
+            <div className="relative">
+              <button
+                onClick={() => {
+                  navigate("/wishlist")
+                  setNotifications({wishlistCount: 0, cartCount: notifications.cartCount})
+                }}
+                className={`p-3 rounded-full transition hover:bg-red-500 hover:text-white relative ${isWishlistActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"}`}
+              >
+                <FiHeart className="text-2xl" />
+              </button>
+              {notifications.wishlistCount > 0 && (
+                <span className="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  {notifications.wishlistCount}
+                </span>
+              )}
             </div>
-          )}
-        </div>
+
+            <div className="relative">
+              <button
+                onClick={() => {
+                  navigate("/cart")
+                  setNotifications({cartCount: 0, wishlistCount: notifications.wishlistCount})
+                }}
+                className={`p-3 rounded-full transition hover:bg-red-500 hover:text-white relative ${isCartActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"}`}
+              >
+                <FiShoppingCart className="text-2xl" />
+              </button>
+              {notifications.cartCount > 0 && (
+                <span className="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  {notifications.cartCount}
+                </span>
+              )}
+            </div>
+
+            <div
+              className="relative group"
+              onMouseEnter={() => setIsUserMenuOpen(true)}
+              onMouseLeave={() => setIsUserMenuOpen(false)}
+            >
+              <button
+                className={`p-3 rounded-full transition ${
+                  isUserMenuOpen || isUserActive ? "bg-red-500 text-white" : "hover:bg-red-500 hover:text-white"
+                }`}
+              >
+                <FiUser className="text-2xl" />
+              </button>
+
+              {isUserMenuOpen && (
+                <div className="absolute right-0 w-64 bg-white shadow-lg rounded-lg p-3 z-10 backdrop-blur-md bg-black/5">
+                  {[
+                    { path: "/account", label: "Manage My Account", Icon: FiUser },
+                    { path: "/orders", label: "My Orders", Icon: FiShoppingBag },
+                    { path: "/cancellations", label: "My Cancellations", Icon: ImCancelCircle },
+                    { path: "/reviews", label: "My Reviews", Icon: FaRegStar },
+                    { path: "/logout", label: "Logout", Icon: CiLogout, textClass: "text-red-500", onClick: {logout} },
+                  ].map(({ path, label, Icon, textClass, onClick }) => (
+                    <Link
+                      key={path}
+                      to={path}
+                      onClick={onClick}
+                      className={`flex items-center space-x-3 px-4 py-2 rounded-md hover:bg-red-500 hover:text-white transition ${textClass || ""}`}
+                    >
+                      <Icon className="text-xl" />
+                      <span>{label}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
 
       <button className="md:hidden text-2xl" onClick={() => setIsOpen(!isOpen)}>
@@ -145,6 +206,7 @@ const Navbar = () => {
           ))}
         </div>
       )}
+
     </nav>
   );
 };

@@ -9,7 +9,7 @@ const BannerCarousel = () => {
     const bannerImages = [banner1, banner2, banner3];
 
   return (
-    <div className="w-full h-[400px] bg-black rounded-lg overflow-hidden">
+    <div className="w-full h-[600px] bg-black rounded-lg overflow-hidden">
       <Carousel
         autoPlay
         infiniteLoop
@@ -18,7 +18,7 @@ const BannerCarousel = () => {
         interval={3000}
       >
         {bannerImages.map((image, index) => (
-          <div key={index} className="h-[400px] flex items-center justify-center bg-black">
+          <div key={index} className="h-[600px] flex items-center justify-center bg-black">
             <img 
               src={image} 
               alt={`Banner ${index + 1}`} 
